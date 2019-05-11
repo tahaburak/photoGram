@@ -215,3 +215,5 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/linux,macos,windows,laravel,vagrant,intellij,phpcodesniffer,visualstudiocode
+/public/css/app.css
+/public/js/app.js
