@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+
 class ProfilesController extends Controller
 {
-	public function index()
+	public function show($username)
 	{
-		return view('home');
+		$user = User::findOrFail($username);
+
+		return view('home', ['user' => $user]);
 	}
 }
