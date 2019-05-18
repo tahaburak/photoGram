@@ -4,16 +4,21 @@
     <div class="container">
         <div class="row">
             <div class="col-3 p-5">
-                <img src="https://scontent-mxp1-1.cdninstagram.com/vp/b567506f28b530fbaaa2e93b6083450c/5D651D5D/t51.2885-19/s150x150/59381178_2348911458724961_5863612957363011584_n.jpg?_nc_ht=scontent-mxp1-1.cdninstagram.com"
-                     alt="profile picture" class="rounded-circle">
+                <img src="/storage/{{$user->profile->image}}"
+                     alt="profile picture" class="rounded-circle w-100">
             </div>
             <div class="col-9 pt-5">
                 <div class="d-flex justify-content-between align-baseline">
                     <h1>{{$user->username}}</h1>
-                    <a href="#">Add New Post</a>
+                    @can('update',$user->profile)
+                        <a href="/p/create">Add New Post</a>
+                    @endcan
                 </div>
+                @can('update',$user->profile)
+                    <a href="/profile/{{$user->id}}/edit">Edit Profile</a>
+                @endcan
                 <div class="d-flex">
-                    <div class="pr-5"><strong>153</strong> posts</div>
+                    <div class="pr-5"><strong>{{$user->posts->count()}}</strong> posts</div>
                     <div class="pr-5"><strong>23k</strong> followers</div>
                     <div class="pr-5"><strong>212</strong> following</div>
                 </div>
@@ -22,19 +27,15 @@
                 <div><a href="{{$user->profile->url}}">{{$user->profile->url}}</a></div>
             </div>
         </div>
-        <div class="row pt-5">
-            <div class="col-4">
-                <img src="https://scontent-mxp1-1.cdninstagram.com/vp/59b4a23c5929bf6e9ba42a97e2067cb5/5D75CAE3/t51.2885-15/sh0.08/e35/c6.0.738.738a/s640x640/59671261_300909900824870_753589034962477580_n.jpg?_nc_ht=scontent-mxp1-1.cdninstagram.com"
-                     class="w-100" alt="">
-            </div>
-            <div class="col-4">
-                <img src="https://scontent-mxp1-1.cdninstagram.com/vp/39f80a0706f83dcfc8ddf91ff7dbb3a4/5D54361C/t51.2885-15/sh0.08/e35/s640x640/57244862_513269102746206_599322833260649013_n.jpg?_nc_ht=scontent-mxp1-1.cdninstagram.com"
-                     class="w-100" alt="">
-            </div>
-            <div class="col-4">
-                <img src="https://scontent-mxp1-1.cdninstagram.com/vp/ddb1732519ffdd9afda247a7387a1acf/5D633A4C/t51.2885-15/e35/55883502_276964759894127_4802325343098871564_n.jpg?_nc_ht=scontent-mxp1-1.cdninstagram.com"
-                     class="w-100" alt="">
-            </div>
+        <div class="row pt-5 ">
+            @foreach( $user->posts as $post	)
+                <div class="col-4 pb-4">
+                    <a href="/p/{{$post->id}}">
+                        <img src="/storage/{{$post->image}}" class="w-100" alt="">
+                    </a>
+                </div>
+            @endforeach
+
         </div>
     </div>
 @endsection

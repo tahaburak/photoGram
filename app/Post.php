@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+	protected $guarded = [];
+
 	public function user()
 	{
-		$this->belongsTo(User::class);
+		return $this->belongsTo(User::class);
 	}
 }
